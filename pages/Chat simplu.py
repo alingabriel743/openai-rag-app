@@ -8,7 +8,7 @@ import tomllib
 # load_dotenv()
 
 # Load the TOML configuration file
-with open("config.toml", "rb") as config_file:
+with open("secrets.toml", "rb") as config_file:
     config = tomllib.load(config_file)
 
 openai.api_key = config['settings']['OPENAI_API_KEY']

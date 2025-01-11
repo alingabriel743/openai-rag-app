@@ -13,7 +13,7 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import sqlite3
 # Load the TOML configuration file
-with open("config.toml", "rb") as config_file:
+with open("secrets.toml", "rb") as config_file:
     config = tomllib.load(config_file)
 
 openai.api_key = config['settings']['OPENAI_API_KEY']
