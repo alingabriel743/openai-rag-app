@@ -12,12 +12,10 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 # load_dotenv()
 
 import sqlite3
-# Load the TOML configuration file
-with open("secrets.toml", "rb") as config_file:
-    config = tomllib.load(config_file)
 
-openai.api_key = config['settings']['OPENAI_API_KEY']
-MODEL_NAME = config['settings']['MODEL_NAME']
+openai.api_key = st.secrets['OPENAI_API_KEY']
+MODEL_NAME = st.secrets['MODEL_NAME']
+PRODUCTION = st.secrets['PRODUCTION']
 
 def embed_text(text):
     response = openai.Embedding.create(
@@ -29,7 +27,7 @@ def embed_text(text):
 
 def main():
     # Verificam daca suntem in modul productie
-    is_production = os.getenv("PRODUCTION", "False") == "True"
+    is_production = PRODUCTION == "True"
 
     if is_production:
         # Verificam daca cheia API este setata

@@ -9,6 +9,7 @@ __import__('pysqlite3')
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import sqlite3
+PRODUCTION = st.secrets['PRODUCTION']
 st.set_page_config(
     page_title="Streamlit RAG App",
     page_icon="💬",
@@ -32,7 +33,7 @@ def main():
     """)
 
 
-    is_production = os.getenv("PRODUCTION", "False") == "True"
+    is_production = PRODUCTION == "True"
 
     if is_production:
         st.subheader("Introduceti cheia API OpenAI")
