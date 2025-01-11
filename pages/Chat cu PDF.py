@@ -1,3 +1,8 @@
+import sys
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+import sqlite3
+
 import streamlit as st
 import openai
 import os
@@ -6,12 +11,11 @@ from utils.chromadb_utils import create_or_get_collection, add_documents_to_coll
 from utils.pdf_processing import extract_pdf_text, split_text_into_chunks
 import tomllib
 
-import sys
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
 # load_dotenv()
 
-import sqlite3
+
 
 openai.api_key = st.secrets['OPENAI_API_KEY']
 MODEL_NAME = st.secrets['MODEL_NAME']
