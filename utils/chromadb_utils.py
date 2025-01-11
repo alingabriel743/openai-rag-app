@@ -17,12 +17,15 @@ def sanitize_collection_name(name):
     return sanitized_name[:63]  
 
 def create_or_get_collection(collection_name):
-    print("here i am")
-    print(chroma_client.list_collections())
+    print("Checking for existing collections...")
     existing_collections = [col.name for col in chroma_client.list_collections()]
+    print("Existing collections:", existing_collections)
     
     if collection_name in existing_collections:
+        print(f"Collection '{collection_name}' found.")
         return chroma_client.get_collection(name=collection_name)
+    
+    print(f"Collection '{collection_name}' does not exist. Creating new collection.")
     return chroma_client.create_collection(name=collection_name)
 
 def add_documents_to_collection(collection, chunks, embeddings):
