@@ -1,7 +1,14 @@
 import streamlit as st
 import openai
 import os
+import tomllib
+import sys
 
+__import__('pysqlite3')
+
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+import sqlite3
 st.set_page_config(
     page_title="Streamlit RAG App",
     page_icon="💬",

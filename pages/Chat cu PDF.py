@@ -4,11 +4,20 @@ import os
 from dotenv import load_dotenv
 from utils.chromadb_utils import create_or_get_collection, add_documents_to_collection, query_collection, sanitize_collection_name
 from utils.pdf_processing import extract_pdf_text, split_text_into_chunks
+import tomllib
 
-load_dotenv()
+import sys
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+import sqlite3
+# Load the TOML configuration file
+with open("config.toml", "rb") as config_file:
+    config = tomllib.load(config_file)
 
+openai.api_key = config['settings']['OPENAI_API_KEY']
+MODEL_NAME = config['settings']['MODEL_NAME']
 
 def embed_text(text):
     response = openai.Embedding.create(

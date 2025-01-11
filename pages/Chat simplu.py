@@ -3,24 +3,29 @@ import openai
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+import tomllib
 
-load_dotenv()
+# load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-MODEL_NAME = os.getenv("MODEL_NAME")
+# Load the TOML configuration file
+with open("config.toml", "rb") as config_file:
+    config = tomllib.load(config_file)
+
+openai.api_key = config['settings']['OPENAI_API_KEY']
+MODEL_NAME = config['settings']['MODEL_NAME']
 
 def generate_response(prompt):
     try:
         response = openai.ChatCompletion.create(
             model=MODEL_NAME,
             messages=[
-                {"role": "system", "content": "Esti un asistent care raspunde la intrebarile utilizatorilor. Vei raspunde in limba utilizatorului"},
+                {"role": "system", "content": "Esti un asistent care raspunde la intrebarile utilizatorilor. Vei raspunde in limba utilizatorului."},
                 {"role": "user", "content": prompt},
             ],
         )
-        return response['choices'][0]['message']['content'].strip()
+        return response.choices[0].message["content"].strip()
     except Exception as e:
-        return f"A apărut o eroare: {str(e)}"
+        return f"A aparut o eroare: {str(e)}"
 
 def main():
 
