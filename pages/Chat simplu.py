@@ -1,26 +1,27 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 from datetime import datetime
 
 
 # load_dotenv()
-
-openai.api_key = st.secrets['OPENAI_API_KEY']
+client = OpenAI(
+    api_key = st.secrets['OPENAI_API_KEY']
+)
 MODEL_NAME = st.secrets['MODEL_NAME']
 PRODUCTION = st.secrets['PRODUCTION']
 
 def generate_response(prompt):
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=[
                 {"role": "system", "content": "Esti un asistent care raspunde la intrebarile utilizatorilor. Vei raspunde in limba utilizatorului."},
                 {"role": "user", "content": prompt},
             ],
         )
-        return response.choices[0].message["content"].strip()
+        return response.choices[0].message.content.strip()
     except Exception as e:
         return f"A aparut o eroare: {str(e)}"
 
