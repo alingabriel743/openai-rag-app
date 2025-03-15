@@ -20,12 +20,12 @@ def sanitize_collection_name(name):
 
 def create_or_get_collection(collection_name):
     print("Checking for existing collections...")
-    existing_collections = [col.name for col in chroma_client.list_collections()]
+    existing_collections = chroma_client.list_collections()
     print("Existing collections:", existing_collections)
     
     if collection_name in existing_collections:
         print(f"Collection '{collection_name}' found.")
-        return chroma_client.get_collection(name=collection_name)
+        return chroma_client.get_collection(collection_name)  # Corrected access
     
     print(f"Collection '{collection_name}' does not exist. Creating new collection.")
     return chroma_client.create_collection(name=collection_name)
