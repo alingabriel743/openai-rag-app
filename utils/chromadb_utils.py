@@ -1,16 +1,18 @@
 import sys
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-import sqlite3
+# __import__('pysqlite3')
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# import sqlite3
 
 import chromadb
 from chromadb.config import Settings
 import tempfile
 from chromadb.api.client import SharedSystemClient
 import re
+import os
 
+CHROMA_DB_PATH = os.path.join(os.getcwd(), "chroma")
 SharedSystemClient.clear_system_cache()
-chroma_client = chromadb.Client()
+chroma_client = chromadb.PersistentClient(path=CHROMA_DB_PATH)
 
 def sanitize_collection_name(name):
     sanitized_name = re.sub(r"[^a-zA-Z0-9_-]", "_", name) 

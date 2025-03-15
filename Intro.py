@@ -4,11 +4,9 @@ import os
 import tomllib
 import sys
 
-__import__('pysqlite3')
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-import sqlite3
+# import sqlite3
 PRODUCTION = st.secrets['PRODUCTION']
 st.set_page_config(
     page_title="Streamlit RAG App",
