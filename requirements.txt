@@ -8,4 +8,4 @@ python-dotenv
 requests
 langchain-community
 pypdf
-pysqlite3-binary
+pysqlite3
