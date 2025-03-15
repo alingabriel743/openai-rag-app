@@ -2,11 +2,12 @@ import streamlit as st
 import openai
 import os
 import tomllib
+import sqlite3
 import sys
 
-# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-# import sqlite3
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 PRODUCTION = st.secrets['PRODUCTION']
 st.set_page_config(
     page_title="Streamlit RAG App",

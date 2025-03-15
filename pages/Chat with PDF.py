@@ -2,9 +2,14 @@ import sys
 import streamlit as st
 import openai
 import os
+import sqlite3
 from dotenv import load_dotenv
 from utils.chromadb_utils import create_or_get_collection, add_documents_to_collection, query_collection, sanitize_collection_name
 from utils.pdf_processing import extract_pdf_text, split_text_into_chunks
+
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Load environment variables
 load_dotenv()
