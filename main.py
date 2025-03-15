@@ -26,11 +26,11 @@ def validate_api_key(api_key):
         return False
 
 def main():
-    st.title("Welcome to the Application 💬")
+    st.title("Welcome to the application 💬")
     st.write("""
         This application has two main functionalities:
-        1. **Simple Chat**: Interact with the LLM in a simple, conversational way.
-        2. **Chat with PDF files**: Upload a PDF file and interact with the LLM to extract information from it.
+        1. **Simple chat**: interact with the LLM in a simple, conversational way
+        2. **Chat with PDF files**: upload a PDF file and interact with the LLM to extract information from it
     """)
 
     is_production = PRODUCTION == "True"
